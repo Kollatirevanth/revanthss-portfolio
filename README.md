@@ -1,1 +1,583 @@
-# revanthss-portfolio
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K. Revanth Siva Sai - Full Stack Developer & Data Scientist</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Font Import */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Custom Styles for Futuristic Design (Fuchsia Accent) --- */
+
+        /* Neon Highlight Color (Fuchsia-500) */
+        .neon-text { color: #d946ef; } /* Fuchsia-500 */
+        .neon-bg { background-color: #d946ef; } /* Fuchsia-500 */
+        .neon-border { border-color: #d946ef; } /* Fuchsia-500 */
+
+        /* Neon Text Glow Effect (Enhanced) */
+        .neon-glow-text {
+            text-shadow: 0 0 8px rgba(217, 70, 239, 0.5), 
+                         0 0 20px rgba(217, 70, 239, 0.3);
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background-color: rgba(30, 41, 59, 0.5); /* Slate-800 with transparency */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px); /* Safari support */
+            border: 1px solid rgba(217, 70, 239, 0.2); /* Subtle fuchsia border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Subtle Background Animation for Hero Section */
+        .futuristic-bg {
+            position: relative;
+            background-color: #0f172a; /* Slate-900 for solid dark background */
+            z-index: 1;
+        }
+        .futuristic-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Updated gradient colors to Fuchsia and Purple */
+            background: radial-gradient(circle at 10% 20%, rgba(217, 70, 239, 0.08) 0%, transparent 20%), 
+                        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 20%);
+            animation: pulse-bg 20s infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+        }
+        @keyframes pulse-bg {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Slow Pulse for circular image element */
+        @keyframes pulse-slow {
+            0% { transform: scale(0.98); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
+            100% { transform: scale(0.98); opacity: 0.8; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 8s infinite ease-in-out;
+        }
+        
+        /* Timeline styling remains purple for secondary visual hierarchy */
+        .timeline { border-left: 2px solid #374151; /* Gray-700 */ }
+        .timeline-dot { background-color: #a855f7; /* Purple-500 */ }
+
+        /* General Styling */
+        .nav-link { transition: color 0.3s ease, border-bottom 0.3s ease; }
+        .nav-link:hover { color: #d946ef; /* fuchsia-500 */ }
+        html { scroll-padding-top: 5rem; }
+
+        /* Ensuring Hero Image is visible on smaller screens (Mobile first adjustments) */
+        @media (max-width: 768px) {
+            #home .md\:grid-cols-2 {
+                grid-template-columns: 1fr; /* Single column on mobile */
+            }
+            #home .md\:justify-end {
+                justify-content: center; /* Center the image on mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white futuristic-bg">
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-gray-900/90 backdrop-blur-md shadow-xl z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold neon-text">
+                <a href="#home" class="hover:text-fuchsia-300 transition-colors">K. Revanth S. S.</a>
+            </h1>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link font-medium text-lg border-b-2 border-transparent hover:border-fuchsia-500">About</a>
+                <a href="#skills" class="nav-link font-medium text-lg border-b-2 border-transparent hover:border-fuchsia-500">Expertise</a>
+                <a href="#services" class="nav-link font-medium text-lg border-b-2 border-transparent hover:border-fuchsia-500">Services</a>
+                <a href="#projects" class="nav-link font-medium text-lg border-b-2 border-transparent hover:border-fuchsia-500">Projects</a>
+                <a href="#contact" class="nav-link font-medium text-lg border-b-2 border-transparent hover:border-fuchsia-500">Contact</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-fuchsia-400 focus:outline-none p-2 rounded-lg transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <nav id="mobile-menu" class="md:hidden hidden bg-gray-800 border-t border-gray-700">
+            <a href="#about" class="block py-3 px-4 text-sm font-semibold hover:bg-gray-700 transition-colors mobile-nav-link">About</a>
+            <a href="#skills" class="block py-3 px-4 text-sm font-semibold hover:bg-gray-700 transition-colors mobile-nav-link">Expertise</a>
+            <a href="#services" class="block py-3 px-4 text-sm font-semibold hover:bg-gray-700 transition-colors mobile-nav-link">Services</a>
+            <a href="#projects" class="block py-3 px-4 text-sm font-semibold hover:bg-gray-700 transition-colors mobile-nav-link">Projects</a>
+            <a href="#contact" class="block py-3 px-4 text-sm font-semibold hover:bg-gray-700 transition-colors mobile-nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <main class="pt-20">
+        
+        <!-- 1. Hero Section -->
+        <section id="home" class="min-h-screen flex items-center p-4">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center w-full py-16">
+                
+                <!-- Left Column: Text, CTAs, Stats -->
+                <div class="space-y-6 md:text-left text-center z-10 order-2 md:order-1">
+                    <p class="text-xl font-bold text-fuchsia-400">Kollati Revanth Siva Sai</p>
+                    <h2 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight text-white">
+                        Full Stack Developer & <span class="neon-text neon-glow-text">Data Scientist.</span>
+                    </h2>
+                    <p class="text-gray-400 text-base sm:text-lg max-w-lg md:mx-0 mx-auto">
+                        Building scalable, user-friendly web applications with AI and Cloud solutions.
+                    </p>
+                    
+                    <!-- CTAs & Self-Introduction (Matching example layout) -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4 md:justify-start justify-center">
+                        <a href="#" class="px-6 py-3 neon-bg text-gray-900 font-bold rounded-lg shadow-xl shadow-fuchsia-500/30 hover:bg-fuchsia-500 transition duration-300 transform hover:-translate-y-0.5">
+                            Download CV
+                        </a>
+                        <!-- Placeholder for self-introduction video/modal -->
+                        <a href="#contact" class="px-6 py-3 border border-fuchsia-500 text-fuchsia-400 font-bold rounded-lg hover:bg-fuchsia-900/50 transition duration-300 flex items-center justify-center space-x-2 transform hover:-translate-y-0.5">
+                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Self Introduction
+                        </a>
+                    </div>
+
+                    <!-- Stats (Matching example layout) -->
+                    <div class="flex md:justify-start justify-center space-x-6 sm:space-x-10 pt-8 mt-8">
+                        <div>
+                            <span class="text-3xl sm:text-4xl font-extrabold neon-text block">3</span>
+                            <span class="text-gray-400 uppercase text-xs tracking-widest">YEARS EXPERIENCE</span>
+                        </div>
+                        <div>
+                            <span class="text-3xl sm:text-4xl font-extrabold neon-text block">15+</span>
+                            <span class="text-gray-400 uppercase text-xs tracking-widest">PROJECTS COMPLETED</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Image and Visuals (Circular Mask and New URL) -->
+                <div class="relative flex justify-center md:justify-end mt-12 md:mt-0 order-1 md:order-2">
+                    
+                    <!-- Animated Circular Background Element (Slightly larger to frame the image) -->
+                    <div class="absolute inset-0 flex justify-center items-center">
+                        <div class="w-72 h-72 sm:w-80 sm:h-80 border-4 border-fuchsia-700/50 rounded-full animate-pulse-slow"></div>
+                    </div>
+                    
+                    <!-- Profile Image Container (Circular Mask Applied) -->
+                    <div class="relative z-20 w-64 h-64 sm:w-72 sm:h-72 rounded-full overflow-hidden border-4 border-fuchsia-500 shadow-2xl shadow-fuchsia-500/40 transition-transform duration-500 hover:scale-[1.05]">
+                        <img 
+                            src="https://i.postimg.cc/9Mfrgt9f/Sung-Jinwoo.jpg" 
+                            alt="K. Revanth Siva Sai Profile Picture" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/288x288/0f172a/d946ef?text=K.R.S.S';"
+                            class="w-full h-full object-cover"
+                        >
+                    </div>
+
+                    <!-- Mock Client Feedback (Hidden on very small screens, responsive placement) -->
+                    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 md:-left-10 md:translate-x-0 glass-card p-4 rounded-xl max-w-xs text-left hidden sm:block z-30">
+                        <p class="text-fuchsia-400 font-semibold mb-1">Client Feedback</p>
+                        <p class="text-gray-300 text-sm italic leading-relaxed">
+                            "Extremely professional, talented, and proactive. Delivered high-quality full-stack development and cloud deployment."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. About Section (Timeline and Bio enhanced) -->
+        <section id="about" class="py-20 px-4 max-w-7xl mx-auto">
+            <h3 class="text-4xl font-bold text-center mb-16 neon-text neon-glow-text">About Me & Timeline</h3>
+            <div class="grid md:grid-cols-3 gap-12 items-start">
+                
+                <!-- Detailed Bio -->
+                <div class="md:col-span-2 space-y-6 glass-card p-8 rounded-xl transition-all duration-300 hover:shadow-fuchsia-500/30 hover:shadow-2xl hover:scale-[1.01]">
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        I am a highly motivated technologist combining deep expertise in **Full Stack Development** (React, Node.js, Express, MongoDB/MySQL) with a strong foundation in **Data Science, AI, and Machine Learning**. I utilize languages like C++ and Java for performance-critical tasks and specialize in crafting end-to-end, robust digital platforms.
+                    </p>
+                    <p class="text-gray-300 text-lg leading-relaxed">
+                        My approach is solution-driven, focusing on building systems that are not only high-performing and scalable but also intrinsically user-centric. I am passionate about leveraging cloud computing to deploy and manage complex AI models and web services efficiently.
+                    </p>
+                    <a href="#" class="inline-block mt-4 px-4 py-2 text-gray-900 bg-fuchsia-400 rounded-lg font-semibold hover:bg-fuchsia-300 transition-colors transform hover:-translate-y-0.5">
+                        Download Resume (Placeholder)
+                    </a>
+                </div>
+
+                <!-- Education & Experience Timeline (Styling refined) -->
+                <div class="md:col-span-1 p-8 rounded-xl glass-card">
+                    <h4 class="text-2xl font-semibold mb-6 text-fuchsia-400">My Journey</h4>
+                    <div class="timeline space-y-8">
+                        
+                        <!-- Timeline Item 1: Internship -->
+                        <div class="relative pl-8">
+                            <div class="absolute w-3 h-3 rounded-full timeline-dot -left-[7px] top-1.5 ring-4 ring-gray-900"></div>
+                            <p class="text-sm text-gray-400">Feb 2024 - Present</p>
+                            <h5 class="font-bold text-lg text-fuchsia-400">Data Analyst & Backend Developer</h5>
+                            <p class="text-gray-300">Arawinz Soft Solutions Pvt Ltd</p>
+                        </div>
+                        
+                        <!-- Timeline Item 2: B.Tech -->
+                        <div class="relative pl-8">
+                            <div class="absolute w-3 h-3 rounded-full timeline-dot -left-[7px] top-1.5 ring-4 ring-gray-900"></div>
+                            <p class="text-sm text-gray-400">2022 - 2026</p>
+                            <h5 class="font-bold text-lg text-fuchsia-400">B.Tech, Data Science & AI</h5>
+                            <p class="text-gray-300">University/College Name</p>
+                        </div>
+                        
+                        <!-- Timeline Item 3: Intermediate -->
+                        <div class="relative pl-8">
+                            <div class="absolute w-3 h-3 rounded-full timeline-dot -left-[7px] top-1.5 ring-4 ring-gray-900"></div>
+                            <p class="text-sm text-gray-400">2020 - 2022</p>
+                            <h5 class="font-bold text-lg text-fuchsia-400">Intermediate (MPC)</h5>
+                            <p class="text-gray-300">College Name</p>
+                        </div>
+
+                        <!-- Timeline Item 4: High School -->
+                        <div class="relative pl-8">
+                            <div class="absolute w-3 h-3 rounded-full timeline-dot -left-[7px] top-1.5 ring-4 ring-gray-900"></div>
+                            <p class="text-sm text-gray-400">Graduated 2020</p>
+                            <h5 class="font-bold text-lg text-fuchsia-400">High School Diploma</h5>
+                            <p class="text-gray-300">School Name</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Skills / Expertise Section (ENHANCED with Progress Bars) -->
+        <section id="skills" class="py-20 px-4 max-w-7xl mx-auto">
+            <h3 class="text-4xl font-bold text-center mb-16 neon-text neon-glow-text">Core Expertise</h3>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Skill Card 1: Full Stack Development -->
+                <div class="glass-card p-6 rounded-xl space-y-4 transition-all duration-300 hover:scale-[1.03] hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:border-fuchsia-400">
+                    <h4 class="text-xl font-semibold text-fuchsia-400">Full Stack Development</h4>
+                    <p class="text-sm text-gray-400">React, Node.js, Express, MongoDB/MySQL, JavaScript/TypeScript.</p>
+                    <div class="relative pt-1">
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-700">
+                            <div style="width: 90%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center neon-bg rounded-full transition-all duration-1000"></div>
+                        </div>
+                        <span class="text-xs text-fuchsia-300 absolute -bottom-3 right-0">90% Mastery</span>
+                    </div>
+                </div>
+                
+                <!-- Skill Card 2: Data Science & Analysis -->
+                <div class="glass-card p-6 rounded-xl space-y-4 transition-all duration-300 hover:scale-[1.03] hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:border-fuchsia-400">
+                    <h4 class="text-xl font-semibold text-fuchsia-400">Data Science & Analysis</h4>
+                    <p class="text-sm text-gray-400">Python, Pandas, NumPy, Data Visualization, Statistical Modeling.</p>
+                    <div class="relative pt-1">
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-700">
+                            <div style="width: 85%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center neon-bg rounded-full transition-all duration-1000"></div>
+                        </div>
+                        <span class="text-xs text-fuchsia-300 absolute -bottom-3 right-0">85% Proficiency</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 3: AI & Machine Learning -->
+                <div class="glass-card p-6 rounded-xl space-y-4 transition-all duration-300 hover:scale-[1.03] hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:border-fuchsia-400">
+                    <h4 class="text-xl font-semibold text-fuchsia-400">AI & Machine Learning</h4>
+                    <p class="text-sm text-gray-400">TensorFlow, Scikit-learn, Deep Learning concepts, NLP basics.</p>
+                    <div class="relative pt-1">
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-700">
+                            <div style="width: 75%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center neon-bg rounded-full transition-all duration-1000"></div>
+                        </div>
+                        <span class="text-xs text-fuchsia-300 absolute -bottom-3 right-0">75% Competency</span>
+                    </div>
+                </div>
+                
+                <!-- Skill Card 4: Cloud & DevOps -->
+                <div class="glass-card p-6 rounded-xl space-y-4 transition-all duration-300 hover:scale-[1.03] hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:border-fuchsia-400">
+                    <h4 class="text-xl font-semibold text-fuchsia-400">Cloud & DevOps</h4>
+                    <p class="text-sm text-gray-400">AWS fundamentals, Docker, CI/CD pipelines, Scalability.</p>
+                    <div class="relative pt-1">
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-700">
+                            <div style="width: 80%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center neon-bg rounded-full transition-all duration-1000"></div>
+                        </div>
+                        <span class="text-xs text-fuchsia-300 absolute -bottom-3 right-0">80% Competency</span>
+                    </div>
+                </div>
+                
+                <!-- Skill Card 5: Core Languages -->
+                <div class="glass-card p-6 rounded-xl space-y-4 transition-all duration-300 hover:scale-[1.03] hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:border-fuchsia-400">
+                    <h4 class="text-xl font-semibold text-fuchsia-400">Core Languages</h4>
+                    <p class="text-sm text-gray-400">C++, Java, OOP principles, efficient algorithm implementation.</p>
+                    <div class="relative pt-1">
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-700">
+                            <div style="width: 95%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center neon-bg rounded-full transition-all duration-1000"></div>
+                        </div>
+                        <span class="text-xs text-fuchsia-300 absolute -bottom-3 right-0">95% Mastery</span>
+                    </div>
+                </div>
+
+                <!-- Skill Card 6: Database Management -->
+                <div class="glass-card p-6 rounded-xl space-y-4 transition-all duration-300 hover:scale-[1.03] hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:border-fuchsia-400">
+                    <h4 class="text-xl font-semibold text-fuchsia-400">Database Management</h4>
+                    <p class="text-sm text-gray-400">SQL/NoSQL (MySQL, MongoDB), database design, querying.</p>
+                    <div class="relative pt-1">
+                        <div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-gray-700">
+                            <div style="width: 88%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center neon-bg rounded-full transition-all duration-1000"></div>
+                        </div>
+                        <span class="text-xs text-fuchsia-300 absolute -bottom-3 right-0">88% Proficiency</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Services Section (ENHANCED with more dynamic hover/shadow) -->
+        <section id="services" class="py-20 px-4 max-w-7xl mx-auto bg-gray-900">
+            <h3 class="text-4xl font-bold text-center mb-16 neon-text neon-glow-text">Services Offered</h3>
+            
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Service 1: Web Development -->
+                <div class="glass-card p-8 rounded-xl transition-all duration-300 hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-400">
+                    <svg class="w-10 h-10 text-purple-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-1.25-3M15 11l5.5-2.5m-5.5 2.5l-5.5-2.5M15 11l-5.5 2.5m5.5-2.5V7.5M9.75 17V11M12 14.5V17"></path></svg>
+                    <h4 class="text-2xl font-semibold mb-3 text-fuchsia-400">Web Development</h4>
+                    <p class="text-gray-400">
+                        Crafting responsive and dynamic front-ends using React and modern frameworks, coupled with robust, scalable Node.js back-ends.
+                    </p>
+                </div>
+
+                <!-- Service 2: Software Development & Web Design -->
+                <div class="glass-card p-8 rounded-xl transition-all duration-300 hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-400">
+                    <svg class="w-10 h-10 text-purple-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    <h4 class="text-2xl font-semibold mb-3 text-fuchsia-400">Software & Design</h4>
+                    <p class="text-gray-400">
+                        Developing custom software solutions and ensuring clean, intuitive, and modern web design with a focus on UX/UI.
+                    </p>
+                </div>
+                
+                <!-- Service 3: Cloud Computing -->
+                <div class="glass-card p-8 rounded-xl transition-all duration-300 hover:shadow-fuchsia-500/50 hover:shadow-2xl hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-400">
+                    <svg class="w-10 h-10 text-purple-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 4h.01M9 18h.01"></path></svg>
+                    <h4 class="text-2xl font-semibold mb-3 text-fuchsia-400">Cloud Computing</h4>
+                    <p class="text-gray-400">
+                        Implementing robust deployment strategies on AWS/GCP, containerization (Docker), and performance optimization for web services.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- 5. Projects Section (ENHANCED with more dynamic hover/shadow) -->
+        <section id="projects" class="py-20 px-4 max-w-7xl mx-auto">
+            <h3 class="text-4xl font-bold text-center mb-16 neon-text neon-glow-text">Notable Projects</h3>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Placeholder Card 1 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-2xl glass-card transform transition-all duration-300 hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-400 hover:shadow-fuchsia-500/30">
+                    <img 
+                        src="https://placehold.co/600x400/1e293b/94a3b8?text=Future+AI+Platform" 
+                        alt="Project 1 Mockup" 
+                        class="w-full h-48 object-cover opacity-70 hover:opacity-100 transition-opacity"
+                    >
+                    <div class="p-6">
+                        <h4 class="text-2xl font-semibold mb-2 text-fuchsia-400">AI-Powered System</h4>
+                        <p class="text-gray-400 mb-4 text-sm">
+                            (Placeholder: Integrate your best project here—e.g., a prediction model or intelligent web app.)
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-900/50 text-xs px-3 py-1 rounded-full text-purple-300">ML/AI</span>
+                            <span class="bg-purple-900/50 text-xs px-3 py-1 rounded-full text-purple-300">Python</span>
+                        </div>
+                        <a href="#" class="text-gray-400 hover:text-fuchsia-400 font-medium inline-flex items-center transition-colors">
+                            View Details &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Placeholder Card 2 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-2xl glass-card transform transition-all duration-300 hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-400 hover:shadow-fuchsia-500/30">
+                    <img 
+                        src="https://placehold.co/600x400/1e293b/94a3b8?text=Scalable+Web+App" 
+                        alt="Project 2 Mockup" 
+                        class="w-full h-48 object-cover opacity-70 hover:opacity-100 transition-opacity"
+                    >
+                    <div class="p-6">
+                        <h4 class="text-2xl font-semibold mb-2 text-fuchsia-400">Full Stack Platform</h4>
+                        <p class="text-gray-400 mb-4 text-sm">
+                            (Placeholder: Describe your most complex full stack application using the MERN stack.)
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-900/50 text-xs px-3 py-1 rounded-full text-purple-300">React</span>
+                            <span class="bg-purple-900/50 text-xs px-3 py-1 rounded-full text-purple-300">Node.js</span>
+                        </div>
+                        <a href="#" class="text-gray-400 hover:text-fuchsia-400 font-medium inline-flex items-center transition-colors">
+                            View Details &rarr;
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Placeholder Card 3 -->
+                <div class="bg-gray-800 rounded-xl overflow-hidden shadow-2xl glass-card transform transition-all duration-300 hover:scale-[1.03] border-2 border-transparent hover:border-fuchsia-400 hover:shadow-fuchsia-500/30">
+                    <img 
+                        src="https://placehold.co/600x400/1e293b/94a3b8?text=Cloud+Deployment" 
+                        alt="Project 3 Mockup" 
+                        class="w-full h-48 object-cover opacity-70 hover:opacity-100 transition-opacity"
+                    >
+                    <div class="p-6">
+                        <h4 class="text-2xl font-semibold mb-2 text-fuchsia-400">Cloud Infrastructure Project</h4>
+                        <p class="text-gray-400 mb-4 text-sm">
+                            (Placeholder: Showcase a project involving AWS/GCP, Docker, or other cloud technologies.)
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-900/50 text-xs px-3 py-1 rounded-full text-purple-300">Cloud</span>
+                            <span class="bg-purple-900/50 text-xs px-3 py-1 rounded-full text-purple-300">DevOps</span>
+                        </div>
+                        <a href="#" class="text-gray-400 hover:text-fuchsia-400 font-medium inline-flex items-center transition-colors">
+                            View Details &rarr;
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. Contact Section (Style consistency check) -->
+        <section id="contact" class="py-20 px-4 max-w-4xl mx-auto">
+            <h3 class="text-4xl font-bold text-center mb-16 neon-text neon-glow-text">Connect with Revanth</h3>
+            
+            <div class="glass-card p-8 md:p-12 rounded-xl transition-all duration-300 hover:shadow-fuchsia-500/30 hover:shadow-2xl hover:scale-[1.01]">
+                
+                <div class="grid sm:grid-cols-2 gap-4 mb-10 text-center">
+                    <a href="mailto:sais76823@gmail.com" class="p-4 rounded-lg bg-gray-900 hover:bg-gray-700 transition-colors">
+                        <span class="block text-sm text-gray-400">Email</span>
+                        <span class="neon-text font-semibold">sais76823@gmail.com</span>
+                    </a>
+                    <a href="tel:9550297777" class="p-4 rounded-lg bg-gray-900 hover:bg-gray-700 transition-colors">
+                        <span class="block text-sm text-gray-400">Phone</span>
+                        <span class="neon-text font-semibold">9550297777</span>
+                    </a>
+                    <a href="https://github.com/Kollatirevanth" target="_blank" class="p-4 rounded-lg bg-gray-900 hover:bg-gray-700 transition-colors">
+                        <span class="block text-sm text-gray-400">GitHub</span>
+                        <span class="neon-text font-semibold">/Kollatirevanth</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/revanth-siva-sai-kollati-b2a688388/" target="_blank" class="p-4 rounded-lg bg-gray-900 hover:bg-gray-700 transition-colors">
+                        <span class="block text-sm text-gray-400">LinkedIn</span>
+                        <span class="neon-text font-semibold">/revanth-siva-sai...</span>
+                    </a>
+                </div>
+
+                <p class="text-gray-400 text-center mb-8">
+                    Let's collaborate! Send me a message regarding project opportunities or technical discussions.
+                </p>
+                
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-fuchsia-400 mb-2">Your Name</label>
+                        <input type="text" id="name" name="name" required
+                               class="w-full px-4 py-3 bg-gray-900/60 glass-card border border-fuchsia-700 rounded-lg focus:border-fuchsia-500 focus:ring-fuchsia-500 text-white transition-colors">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-fuchsia-400 mb-2">Your Email</label>
+                        <input type="email" id="email" name="email" required
+                               class="w-full px-4 py-3 bg-gray-900/60 glass-card border border-fuchsia-700 rounded-lg focus:border-fuchsia-500 focus:ring-fuchsia-500 text-white transition-colors">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-fuchsia-400 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" required
+                                  class="w-full px-4 py-3 bg-gray-900/60 glass-card border border-fuchsia-700 rounded-lg focus:border-fuchsia-500 focus:ring-fuchsia-500 text-white transition-colors"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full px-6 py-3 neon-bg text-gray-900 font-bold rounded-lg hover:bg-fuchsia-500 transition duration-300 transform hover:-translate-y-0.5 shadow-lg shadow-fuchsia-500/30">
+                        Transmit Data
+                    </button>
+                </form>
+
+                <!-- Message Box for Alert replacement -->
+                <div id="form-message" class="mt-6 p-4 text-center rounded-lg hidden transition-opacity duration-300" role="alert"></div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-950 py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex justify-center space-x-6 mb-4">
+                <!-- Social Media Links (Using actual links provided) -->
+                <a href="https://www.linkedin.com/in/revanth-siva-sai-kollati-b2a688388/" target="_blank" class="text-gray-400 hover:text-fuchsia-400 transition-colors" aria-label="LinkedIn">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5C1.109 6 0 4.881 0 3.5S1.109 1 2.5 1c1.371 0 2.48 1.119 2.48 2.5zm0 9c0 1.228-1.077 2.233-2.383 2.233-1.306 0-2.384-1.005-2.384-2.233S1.291 10.267 2.5 10.267c1.306 0 2.384 1.005 2.384 2.233zM6 14.288h4.275V23h-4.275v-8.712zM15 14.288h4.275V23h-4.275v-8.712zM15 11.233c0-.853.693-1.54 1.545-1.54h.455V14h-2V11.233zM6 11.233c0-.853.693-1.54 1.545-1.54h.455V14h-2V11.233zM18.75 8.712c-.73 0-1.353-.263-1.854-.789-.5-.526-.789-1.22-.789-2.083s.289-1.557.789-2.083c.5-.526 1.124-.789 1.854-.789s1.353.263 1.854.789c.5.526.789 1.22.789 2.083s-.289 1.557-.789 2.083c-.5.526-1.124.789-1.854.789z"></path></svg>
+                </a>
+                <a href="https://github.com/Kollatirevanth" target="_blank" class="text-gray-400 hover:text-fuchsia-400 transition-colors" aria-label="GitHub">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.344.726-4.043-1.612-4.043-1.612-.547-1.386-1.334-1.755-1.334-1.755-1.09-.745.082-.73.082-.73 1.205.084 1.838 1.238 1.838 1.238 1.07 1.833 2.81 1.305 3.49.996.108-.775.419-1.305.762-1.605-2.671-.3-5.466-1.336-5.466-5.93 0-1.31.467-2.383 1.23-3.224-.124-.303-.532-1.523.116-3.18 0 0 1-.32 3.3.435 1-.274 2.046-.41 3.093-.41.4.004.8.026 1.192.072 2.09-.755 3.09-0.435 3.09-0.435.648 1.657.24 2.877.116 3.18.763.84 1.23 1.914 1.23 3.224 0 4.606-2.8 5.626-5.474 5.923.43.37.82 1.11.82 2.23 0 1.608-.015 2.898-.015 3.292 0 .318.216.69.82.57C20.562 21.8 24 17.307 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd"></path></svg>
+                </a>
+                <a href="mailto:sais76823@gmail.com" target="_blank" class="text-gray-400 hover:text-fuchsia-400 transition-colors" aria-label="Email">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M2.003 5.884L10.05 12l-8.047 6.116C2.108 18.067 2 17.935 2 17.794V6.206c0-.14.108-.272.003-.322zM22 6.206v11.588c0 .14-.108.272-.003.322L13.95 12l8.047-6.116c-.105-.05-.203-.08-.097-.08zM12 13.5l8.13-6.155c-.16-.07-.34-.145-.56-.254L12 11.458 4.43 7.09c-.22.108-.4.183-.56.254L12 13.5zM22 4h-20c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"></path></svg>
+                </a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; 2025 K. Revanth Siva Sai. All systems operational.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu and Form Handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+
+            // 1. Mobile Menu Toggle
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // 2. Contact Form Submission Handling (Simulated)
+            contactForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent actual form submission
+
+                const formData = new FormData(this);
+                const name = formData.get('name');
+                const submitButton = this.querySelector('button[type="submit"]');
+                
+                // Show loading state
+                submitButton.textContent = 'Transmitting...';
+                submitButton.disabled = true;
+
+                // Simple success message after a delay
+                setTimeout(() => {
+                    formMessage.classList.remove('hidden', 'bg-red-500/50', 'text-red-100');
+                    formMessage.classList.add('bg-green-500/50', 'text-white', 'opacity-100', 'glass-card');
+                    formMessage.innerHTML = `<span class="neon-text">Transmission Complete:</span> Thank you, <span class="font-bold">${name}</span>! I will respond to your query shortly.`;
+                    
+                    // Reset form and button
+                    this.reset();
+                    submitButton.textContent = 'Transmit Data';
+                    submitButton.disabled = false;
+
+                }, 1800); 
+            });
+        });
+    </script>
+
+</body>
+</html>
